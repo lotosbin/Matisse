@@ -91,18 +91,10 @@ public class SampleActivity extends AppCompatActivity implements View.OnClickLis
                                                     getResources().getDimensionPixelSize(R.dimen.grid_expected_size))
                                             .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
                                             .thumbnailScale(0.85f)
-                                            // for glide-V3
-//                                            .imageEngine(new GlideEngine())
-                                            // for glide-V4
-                                            .imageEngine(new Glide4Engine())
-                                            .setOnSelectedListener(new OnSelectedListener() {
-                                                @Override
-                                                public void onSelected(
-                                                        @NonNull List<Uri> uriList, @NonNull List<String> pathList) {
-                                                    // DO SOMETHING IMMEDIATELY HERE
-                                                    Log.e("onSelected", "onSelected: pathList=" + pathList);
-
-                                                }
+                                            .imageEngine(new GlideEngine())
+                                            .setOnSelectedListener((uriList, pathList) -> {
+                                                // DO SOMETHING IMMEDIATELY HERE
+                                                Log.e("onSelected", "onSelected: pathList=" + pathList);
                                             })
                                             .originalEnable(true)
                                             .maxOriginalSize(10)
@@ -125,6 +117,35 @@ public class SampleActivity extends AppCompatActivity implements View.OnClickLis
                                             .originalEnable(true)
                                             .maxOriginalSize(10)
                                             .imageEngine(new PicassoEngine())
+                                            .forResult(REQUEST_CODE_CHOOSE);
+                                    break;
+                                case R.id.only_gif:
+                                    Matisse.from(SampleActivity.this)
+                                            .choose(MimeType.of(MimeType.GIF), false)
+                                            .countable(true)
+                                            .capture(true)
+                                            .captureStrategy(
+                                                    new CaptureStrategy(true, "com.zhihu.matisse.sample.fileprovider", "test"))
+                                            .maxSelectable(9)
+                                            .addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
+                                            .gridExpectedSize(
+                                                    getResources().getDimensionPixelSize(R.dimen.grid_expected_size))
+                                            .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+                                            .thumbnailScale(0.85f)
+                                            .imageEngine(new GlideEngine())
+                                            .setOnSelectedListener((uriList, pathList) -> {
+                                                // DO SOMETHING IMMEDIATELY HERE
+                                                Log.e("onSelected", "onSelected: pathList=" + pathList);
+
+                                            })
+                                            .showSingleMediaType(true)
+                                            .originalEnable(true)
+                                            .maxOriginalSize(10)
+                                            .autoHideToolbarOnSingleTap(true)
+                                            .setOnCheckedListener(isChecked -> {
+                                                // DO SOMETHING IMMEDIATELY HERE
+                                                Log.e("isChecked", "onCheck: isChecked=" + isChecked);
+                                            })
                                             .forResult(REQUEST_CODE_CHOOSE);
                                     break;
                                 default:
