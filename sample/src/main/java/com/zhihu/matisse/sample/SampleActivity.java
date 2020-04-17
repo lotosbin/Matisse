@@ -141,7 +141,7 @@ public class SampleActivity extends AppCompatActivity implements View.OnClickLis
                                             .showSingleMediaType(true)
                                             .originalEnable(true)
                                             .maxOriginalSize(10)
-                                            .autoHideToolbarOnSingleTap(true)
+//                                            .autoHideToolbarOnSingleTap(true)
                                             .setOnCheckedListener(isChecked -> {
                                                 // DO SOMETHING IMMEDIATELY HERE
                                                 Log.e("isChecked", "onCheck: isChecked=" + isChecked);
